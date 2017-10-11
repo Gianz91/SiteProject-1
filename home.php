@@ -83,7 +83,8 @@ div.desc {
 <div><?php /*Fetch object array */
     while($obj = $result->fetch_object()){ ?>
       <div class="gallery">
-        <a target="_blank" href="<?php echo $obj->name ?>">
+         <a target="_blank" href="<?php  echo "/fotopage.php?foto=". $obj->nome ?>" 
+                        onclick = '<?php echo "/fotopage.php?foto=". $obj->nome;?>'>
           <img src="<?php echo "/uploads/".$obj->name ?>" alt="Immagine" width="300" height="200">
         </a>
         <div class="desc"> <?php echo $obj->description ?> </div>
