@@ -1,8 +1,12 @@
 <?php
-include '../dbconnection.php';
+include 'dbconnection.php';
 //include 'MySession.php';
 
 session_start();
+
+
+
+
 
 $username = $_POST['name'];
 $password = $_POST['password'];
@@ -42,6 +46,7 @@ session_write_close();
 		<p style="color: red"><?php echo $error ?></p>
 	<?php else: header('Location: /home.php?user='.$username); ?>
 	<?php endif ?>
-        <?php exit();?>
+        <?php exit();?>	
 </body>
 </html>
+
