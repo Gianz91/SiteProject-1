@@ -1,9 +1,9 @@
 <?php
 require '../initialization/dbconnection.php';
-
-session_start();
 require_once 'FB_API/vendor/autoload.php';
 require 'fb-config.php';
+
+session_start();
 
 
 $helper = $fb->getRedirectLoginHelper();
@@ -81,8 +81,10 @@ global $mysqli;
 $firstname = $userData['first_name'];
 $lastname = $userData['last_name'];
 $email = $userData['email'];
+$email = filter_var($email,FILTER_SANITIZE_STRING);
 $fbpass = $userData['id'];
 $fbpass = hash('sha256',$fbpass);
+echo $email;
 $result = $mysqli->query("SELECT id, email FROM login WHERE email = '$email'");
 if(!$result->num_rows){
    $query1 = "INSERT INTO login  (firstname, lastname, email, password) VALUES('$firstname', '$lastname', '$email', '$fbpass');";
@@ -90,7 +92,7 @@ if(!$result->num_rows){
         die($mysqli->error);
         $error = "error in mysql!";
     } else{
-        $result = $mysqli->query($query);
+        $result2 = $mysqli->query($query);
     }
 }
 $obj=$result->fetch_object();
@@ -100,5 +102,6 @@ $mysqli->close();
 session_write_close();
 
 header('Location: index.php?user='. $_SESSION['current_user']);
+exit();
 //header('Location: https://photolio.com/google-login/index.php');
 ?>
